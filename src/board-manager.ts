@@ -100,6 +100,26 @@ export class BoardManager {
     this.board[randRow][randCol] = VISITED_SYMBOL;
   }
 
+  async runDfs(row: number, col: number) {
+    this.board[row][col] = VISITED_SYMBOL;
+    await sleep(100);
+    // console.clear();
+    this.printBoard();
+
+    if (this.board[row + 1] && this.board[row + 1][col] === EMPTY_SYMBOL) {
+      await this.runDfs(row + 1, col);
+    }
+    if (this.board[row - 1] && this.board[row - 1][col] === EMPTY_SYMBOL) {
+      await this.runDfs(row - 1, col);
+    }
+    if (this.board[row][col + 1] && this.board[row][col + 1] === EMPTY_SYMBOL) {
+      await this.runDfs(row, col + 1);
+    }
+    if (this.board[row][col - 1] && this.board[row][col - 1] === EMPTY_SYMBOL) {
+      await this.runDfs(row, col - 1);
+    }
+  }
+
   async runBfs(randomInit: boolean = false) {
     let init = [0, 0];
 
@@ -110,47 +130,37 @@ export class BoardManager {
     const queue: number[][] = [init];
 
     while (queue.length) {
-      const pos = queue.shift();
-      const row = pos ? pos[0] : null; // fix this type error
-      const col = pos ? pos[1] : null;
-
-      if (col === null || row === null) {
-        throw new Error(`should not happen col = ${col} row = ${row}`);
-      }
+      const pos = queue.shift()!;
+      const row = pos[0];
+      const col = pos[1];
 
       if (this.board[row][col] === VISITED_SYMBOL) {
         continue;
       }
 
-      const neighbours: number[][] = [];
+      this.board[row][col] = VISITED_SYMBOL;
+      await sleep(75);
+      // console.clear();
+      this.printBoard();
 
       if (this.board[row + 1] && this.board[row + 1][col] === EMPTY_SYMBOL) {
-        neighbours.push([row + 1, col]);
+        queue.push([row + 1, col]);
       }
       if (this.board[row - 1] && this.board[row - 1][col] === EMPTY_SYMBOL) {
-        neighbours.push([row - 1, col]);
+        queue.push([row - 1, col]);
       }
       if (
         this.board[row][col + 1] &&
         this.board[row][col + 1] === EMPTY_SYMBOL
       ) {
-        neighbours.push([row, col + 1]);
+        queue.push([row, col + 1]);
       }
       if (
         this.board[row][col - 1] &&
         this.board[row][col - 1] === EMPTY_SYMBOL
       ) {
-        neighbours.push([row, col - 1]);
+        queue.push([row, col - 1]);
       }
-
-      neighbours.forEach((n) => {
-        queue.push(n);
-      });
-
-      this.board[row][col] = VISITED_SYMBOL;
-      await sleep(75);
-      console.clear();
-      this.printBoard();
     }
   }
 

@@ -25,6 +25,8 @@ export class Solver {
 
 const solver = new Solver();
 
-const randomInitPos = true;
+// const randomInitPos = false;
 
-solver.boardManager.runBfs(randomInitPos);
+// solver.boardManager.runBfs(randomInitPos);
+
+solver.boardManager.runDfs(0, 0);
