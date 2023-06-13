@@ -10,8 +10,8 @@ export class Bfs {
     this.board = board;
   }
 
-  async solve(startingPos: Position) {
-    const queue: Position[] = [startingPos];
+  async solve(pos: Position, silentRun = false): Promise<Board> {
+    const queue: Position[] = [pos];
 
     while (queue.length) {
       const pos = queue.shift()!;
@@ -21,8 +21,11 @@ export class Bfs {
       }
 
       this.board[pos.row][pos.col] = VISITED_SYMBOL;
-      await sleep(75);
-      printBoard(this.board);
+
+      if (!silentRun) {
+        await sleep(75);
+        printBoard(this.board);
+      }
 
       if (
         this.board[pos.row + 1] &&
@@ -49,5 +52,6 @@ export class Bfs {
         queue.push({ row: pos.row, col: pos.col - 1 });
       }
     }
+    return this.board;
   }
 }

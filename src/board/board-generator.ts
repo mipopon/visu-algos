@@ -2,7 +2,7 @@ import { EMPTY_SYMBOL, WALL_SYMBOL } from "../constants";
 import { Board } from "../types";
 import { randomBetween } from "../utils";
 
-const BOARD_SIZE = 20;
+const BOARD_SIZE = 10;
 const WALL_COUNT = Math.floor(BOARD_SIZE / 1.25);
 const WALL_MAX_SIZE = Math.floor(BOARD_SIZE / 3);
 const WALL_MIN_SIZE = Math.floor(WALL_MAX_SIZE / 2);

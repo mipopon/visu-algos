@@ -10,35 +10,38 @@ export class Dfs {
     this.board = board;
   }
 
-  async solve(pos: Position) {
+  async solve(pos: Position, silentRun = false): Promise<Board> {
     this.board[pos.row][pos.col] = VISITED_SYMBOL;
 
-    await sleep(75);
-    printBoard(this.board);
+    if (!silentRun) {
+      await sleep(75);
+      printBoard(this.board);
+    }
 
     if (
       this.board[pos.row + 1] &&
       this.board[pos.row + 1][pos.col] === EMPTY_SYMBOL
     ) {
-      await this.solve({ row: pos.row + 1, col: pos.col });
+      await this.solve({ row: pos.row + 1, col: pos.col }, silentRun);
     }
     if (
       this.board[pos.row - 1] &&
       this.board[pos.row - 1][pos.col] === EMPTY_SYMBOL
     ) {
-      await this.solve({ row: pos.row - 1, col: pos.col });
+      await this.solve({ row: pos.row - 1, col: pos.col }, silentRun);
     }
     if (
       this.board[pos.row][pos.col + 1] &&
       this.board[pos.row][pos.col + 1] === EMPTY_SYMBOL
     ) {
-      await this.solve({ row: pos.row, col: pos.col + 1 });
+      await this.solve({ row: pos.row, col: pos.col + 1 }, silentRun);
     }
     if (
       this.board[pos.row][pos.col - 1] &&
       this.board[pos.row][pos.col - 1] === EMPTY_SYMBOL
     ) {
-      await this.solve({ row: pos.row, col: pos.col - 1 });
+      await this.solve({ row: pos.row, col: pos.col - 1 }, silentRun);
     }
+    return this.board;
   }
 }
