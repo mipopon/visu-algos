@@ -20,13 +20,8 @@ export class Main {
 
   async runDfs() {
     const board = this.boardGenerator.generate();
-    console.log(board);
-    printBoard(board);
     const dfs = new Dfs(board);
     await dfs.solve({ row: 0, col: 0 });
-
-    console.log(board);
-    printBoard(board);
   }
 }
 
