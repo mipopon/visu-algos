@@ -1,32 +1,23 @@
-import { BoardManager } from "./board-manager";
-import { sleep } from "./utils";
+import { Bfs } from "./solvers/bfs";
+import { BoardGenerator } from "./board/board-generator";
+import { Dfs } from "./solvers/dfs";
 
-export class Solver {
-  boardManager = new BoardManager();
+export class Main {
+  boardGenerator = new BoardGenerator();
 
-  printBoard(showIndexes: boolean = false) {
-    if (showIndexes) {
-      this.boardManager.printBoardWithIndexes();
-    } else {
-      this.boardManager.printBoard();
-    }
+  async runBfs() {
+    const board = this.boardGenerator.generate();
+    const bfs = new Bfs(board);
+    bfs.solve({ row: 0, col: 0 });
   }
 
-  async randomRender() {
-    let updates = 10;
-    while (updates--) {
-      this.boardManager.updatePlayerRandomly();
-      this.boardManager.printBoard();
-
-      await sleep(500);
-    }
+  async runDfs() {
+    const board = this.boardGenerator.generate();
+    const dfs = new Dfs(board);
+    dfs.solve({ row: 0, col: 0 });
   }
 }
 
-const solver = new Solver();
+const main = new Main();
 
-// const randomInitPos = false;
-
-// solver.boardManager.runBfs(randomInitPos);
-
-solver.boardManager.runDfs(0, 0);
+main.runBfs();
