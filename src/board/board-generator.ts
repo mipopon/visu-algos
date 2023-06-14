@@ -1,5 +1,5 @@
-import { EMPTY_SYMBOL, WALL_SYMBOL } from "../constants";
-import { Board } from "../types";
+import { DESTINATION_SYMBOL, EMPTY_SYMBOL, WALL_SYMBOL } from "../constants";
+import { Board, Position } from "../types";
 import { randomBetween } from "../utils";
 
 const BOARD_SIZE = 10;
@@ -10,7 +10,18 @@ const WALL_MIN_SIZE = Math.floor(WALL_MAX_SIZE / 2);
 export class BoardGenerator {
   generate(): Board {
     const board = this.generateEmptyBoard();
-    return this.insertWalls(board);
+    this.insertWalls(board);
+    return board;
+  }
+
+  setDestination(board: Board, destination?: Position): Board {
+    if (destination) {
+      board[destination.row][destination.col] = DESTINATION_SYMBOL;
+    } else {
+      const boardSize = board[0].length - 1;
+      board[boardSize][boardSize] = DESTINATION_SYMBOL;
+    }
+    return board;
   }
 
   private generateEmptyBoard(): Board {

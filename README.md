@@ -7,18 +7,18 @@ Visualising Algorithms
   - [x] Generate board
   - [x] Add Walls
   - [ ] Custom Configurations
-  - [ ] Point A and B
+  - [x] Point A and B
 - [x] UI
   - [x] Terminal
   - [ ] HMTL Canvas
 - [x] BFS
   - [x] Visit all possible nodes
   - [x] Tests
-  - [ ] Find way from A to B
+  - [x] Find way from A to B
 - [x] DFS
   - [x] Visit all possible nodes
   - [x] Tests
-  - [ ] Find way from A to B
+  - [x] Find way from A to B
 - [ ] Dijkstra
   - [ ] Find way from A to B
 - [ ] A*

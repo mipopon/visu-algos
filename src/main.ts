@@ -1,7 +1,7 @@
 import { Bfs } from "./solvers/bfs";
 import { BoardGenerator } from "./board/board-generator";
 import { Dfs } from "./solvers/dfs";
-import { printBoard } from "./board/board-utils";
+import { getRandomEmptyPosition, printBoard } from "./board/board-utils";
 
 export class Main {
   boardGenerator = new BoardGenerator();
@@ -14,17 +14,29 @@ export class Main {
 
   async runBfs() {
     const board = this.boardGenerator.generate();
+
+    const randomDestination = getRandomEmptyPosition(board);
+    this.boardGenerator.setDestination(board, randomDestination);
+
     const bfs = new Bfs(board);
-    bfs.solve({ row: 0, col: 0 });
+
+    const randomInit = getRandomEmptyPosition(board);
+    bfs.solve(randomInit);
   }
 
   async runDfs() {
     const board = this.boardGenerator.generate();
+
+    const randomDestination = getRandomEmptyPosition(board);
+    this.boardGenerator.setDestination(board, randomDestination);
+
     const dfs = new Dfs(board);
-    await dfs.solve({ row: 0, col: 0 });
+
+    const randomInit = getRandomEmptyPosition(board);
+    await dfs.solve(randomInit);
   }
 }
 
 const main = new Main();
 
-main.runDfs();
+main.runBfs();

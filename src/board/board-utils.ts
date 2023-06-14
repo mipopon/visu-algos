@@ -53,5 +53,8 @@ export function getRandomEmptyPosition(board: Board): Position {
       break;
     }
   }
+  if (tries <= 0) {
+    throw new Error("Could not pick an empty position on the board");
+  }
   return { row: randRow, col: randCol };
 }
