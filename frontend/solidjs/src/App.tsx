@@ -14,7 +14,7 @@ import {
 
 const App: Component<{ root: HTMLElement }> = ({ root }: AppProps) => {
   const boardGenerator = new BoardGenerator();
-  const board = boardGenerator.generate();
+  const board = boardGenerator.setDestination(boardGenerator.generate());
 
   console.log({ y: board.length, x: board[0].length }, board);
 
